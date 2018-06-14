@@ -1,0 +1,8 @@
+#Ignore these
+*.csv
+*.png
+parameters.txt
+
+#except these
+!crsp.csv
+!market-strat_example.png
