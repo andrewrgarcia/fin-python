@@ -1,7 +1,7 @@
 #Ignore these
 *.csv
 *.png
-parameters.txt
+stock_params.py
 
 #except these
 !crsp.csv

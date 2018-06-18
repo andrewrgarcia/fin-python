@@ -10,14 +10,23 @@ import pandas as pd
 #import pandas.io.data as web
 #from pandas_datareader import data, wb
 
+import stock_params
+'''stock_params.py: returns ticker name (as a string), 
+rolling means 1 and 2 and SD (as numbers) from vector def
+i.e. def Netflix:
+        return ['name', roll_mean1,roll_mean2, SD]
+will not push this script; personal stock info'''
 
-def qtech(name='CRSP',roll_mean1=5,roll_mean2=21):
+
+def qtech():
+    
+    name, roll_mean1,roll_mean2, SD = stock_params.Netflix()
 
     hist_data = pd.read_csv(name+'.csv')
     hist_data.info()
     hist_data[['date','close']].plot(title = name, x='date', grid=True, figsize=(8, 5))
     
-    
+   
     ''' Historical data with moving averages '''
     
     hist_data[str(roll_mean1)+'d'] = np.round(pd.rolling_mean(hist_data['close'], window=roll_mean1), 2)
@@ -34,7 +43,6 @@ def qtech(name='CRSP',roll_mean1=5,roll_mean2=21):
     
     hist_data['42-252'].tail
     
-    SD = 2
     hist_data['regime'] = np.where(hist_data['42-252'] > SD, 1, 0)
     hist_data['regime'] = np.where(hist_data['42-252'] < -SD, -1, hist_data['regime'])
     hist_data['regime'].value_counts()
