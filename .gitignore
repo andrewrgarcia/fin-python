@@ -2,6 +2,7 @@
 *.csv
 *.png
 stock_params.py
+monte-carlo_Q.py
 
 #except these
 !crsp.csv
