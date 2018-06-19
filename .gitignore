@@ -5,5 +5,5 @@ stock_params.py
 monte-carlo_Q.py
 
 #except these
-!crsp.csv
-!market-strat_example.png
+!dpz.csv
+!strategy-optimization.png
