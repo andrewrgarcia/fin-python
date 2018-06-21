@@ -55,13 +55,14 @@ def qtech():
     hist_data['market'] = np.log(hist_data['close'] / hist_data['close'].shift(1))
     hist_data['strategy'] =  hist_data['market'] *(1+hist_data['regime'].shift(1))
     
-    hist_data[['market','strategy']].cumsum().plot(title=name,grid=True, figsize=(8, 5))
+    hist_data[['market','strategy']].cumsum().apply(np.exp).plot(title=name,grid=False, figsize=(8, 5))
     
     X=hist_data['strategy'].cumsum().iloc[-1]-hist_data['market'].cumsum().iloc[-1]
     
     print('final data pt. difference b/t market & strat: ',X)
 
 qtech()
+
 
 
 

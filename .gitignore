@@ -6,4 +6,6 @@ monte-carlo_Q.py
 
 #except these
 !dpz.csv
-!strategy-optimization.png
+!after_BFMC.png
+!before_BFMC.png
+!BFMC.png
