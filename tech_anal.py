@@ -34,7 +34,7 @@ def qtech():
     
     hist_data[['close', str(roll_mean1)+'d', str(roll_mean2)+'d']].tail
     
-    hist_data[['date','close', str(roll_mean1)+'d', str(roll_mean2)+'d']].plot(x='date',grid=True, figsize=(8, 5))
+    hist_data[['date','close', str(roll_mean1)+'d', str(roll_mean2)+'d']].plot(x='date',grid=False, figsize=(8, 5))
     
     
     '''regime det. '''
@@ -46,8 +46,9 @@ def qtech():
     hist_data['regime'] = np.where(hist_data['42-252'] > SD, 1, 0)
     hist_data['regime'] = np.where(hist_data['42-252'] < -SD, -1, hist_data['regime'])
     hist_data['regime'].value_counts()
+    hist_data['regplot']=max(hist_data['close'])*(2+hist_data['regime'])/8 
     
-    hist_data['regime'].plot(title= name,  grid=True,lw=1.5)
+    hist_data['regplot'].plot(title= name,  grid=False,lw=1.5)
     #plt.ylim([-1.1, 1.1])
     
     '''Market / Strategy comparison '''
