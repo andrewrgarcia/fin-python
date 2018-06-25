@@ -7,7 +7,7 @@ crypto/
 
 #except these
 !dpz.csv
-!after_BFMC.png
-!before_BFMC.png
-!BFMC.png
-!regimeplot.png
+!Dominos_after_BFMC.png
+!Dominos_before_BFMC.png
+!Dominos_BFMC.png
+!Dominos_regimeplot.png
