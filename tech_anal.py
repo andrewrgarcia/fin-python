@@ -20,7 +20,7 @@ will not push this script; personal stock info'''
 
 def qtech():
     
-    name, roll_mean1,roll_mean2, SD = stock_params.Dominos()
+    name, roll_mean1,roll_mean2, SD = stock_params.Apple()
 
     hist_data = pd.read_csv(name+'.csv')
     hist_data.info()
