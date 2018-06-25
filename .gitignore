@@ -3,7 +3,6 @@
 *.png
 stock_params.py
 monte-carlo_Q.py
-#Ignore directory
 crypto/
 
 #except these
