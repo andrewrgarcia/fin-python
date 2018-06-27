@@ -1,13 +1,13 @@
 #Ignore these
 *.csv
 *.png
-stock_params.py
+comm_pars.py
 monte-carlo_Q.py
 crypto/
 
 #except these
 !dpz.csv
-!Dominos_after_BFMC.png
-!Dominos_before_BFMC.png
-!Dominos_BFMC.png
+!Dominos_after_MC.png
+!Dominos_before_MC.png
+!Dominos_MC.png
 !Dominos_regimeplot.png
