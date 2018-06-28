@@ -1,12 +1,11 @@
 #Ignore these
-*.csv
 *.png
 comm_pars.py
 monte-carlo_Q.py
+tech-anlsys_montecarlo.py
 crypto/
 
 #except these
-!dpz.csv
 !Dominos_after_MC.png
 !Dominos_before_MC.png
 !Dominos_MC.png

@@ -81,8 +81,10 @@ def qtech( commodity = comm_pars.Funko() ):
     X=hist_data['strategy'].cumsum().iloc[-1]-hist_data['market'].cumsum().iloc[-1]
     
     print('final data pt. difference b/t market & strat: ',X)
+#    return X
 
 qtech()
+
 
 
 
