@@ -1,12 +1,5 @@
 #Ignore these
-*.png
-comm_pars.py
-monte-carlo_Q.py
-tech-anlsys_montecarlo.py
-crypto/
+vicious_gnauga.py
 
-#except these
-!Dominos_after_MC.png
-!Dominos_before_MC.png
-!Dominos_MC.png
-!Dominos_regimeplot.png
+crypto/
+gnauga-results/
