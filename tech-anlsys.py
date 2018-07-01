@@ -34,12 +34,12 @@ end = dt.datetime.now()
 
 hist_data = web.DataReader(ticker_name, 'morningstar', start, end)
 
-'''for data not present in NASDAQ (i.e. coins) need to uncomment lines below / make 
-code modifications''' 
-#    hist_data = pd.read_csv(ticker_name+'.csv')
-#    hist_data.info()
-
-#    hist_data[['date','close']].plot(title = ticker_name, x='date', grid=False, figsize=(8, 5))
+'''for data not present in Morningstar.com (i.e. coins), 
+need to comment out line 35, uncomment lines below / make code modifications''' 
+#hist_data = pd.read_csv(ticker_name+'.csv')
+#hist_data.info()
+#
+#hist_data[['date','Close']].plot(title = ticker_name, x='date', grid=False, figsize=(8, 5))
 
 print(hist_data)
 
