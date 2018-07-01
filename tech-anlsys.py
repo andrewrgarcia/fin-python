@@ -42,7 +42,7 @@ def qtech( commodity = comm_pars.Funko() ):
 #    hist_data.info()
     
 #    hist_data[['date','close']].plot(title = name, x='date', grid=False, figsize=(8, 5))
-    hist_data[['Close']].plot(title = name, grid=False, figsize=(8, 5))
+    hist_data[['Close']].plot(title = '{} Historical Data'.format(name), grid=False, figsize=(8, 5))
 
     
    
@@ -68,7 +68,7 @@ def qtech( commodity = comm_pars.Funko() ):
     hist_data['regime'].value_counts()
     hist_data['regplot']=max(hist_data['Close'])*(2+hist_data['regime'])/8 
     
-    hist_data['regplot'].plot(title= name,  grid=False,lw=1.5)
+    hist_data['regplot'].plot(title= '{} technical analysis'.format(name),  grid=False,lw=1.5)
     #plt.ylim([-1.1, 1.1])
     
     '''Market / Strategy comparison '''
@@ -76,7 +76,8 @@ def qtech( commodity = comm_pars.Funko() ):
     hist_data['market'] = np.log(hist_data['Close'] / hist_data['Close'].shift(1))
     hist_data['strategy'] =  hist_data['market'] *(1+hist_data['regime'].shift(1))
     
-    hist_data[['market','strategy']].cumsum().apply(np.exp).plot(title=name,grid=False, figsize=(8, 5))
+    hist_data[['market','strategy']].cumsum().apply(np.exp).\
+    plot(title='{} Market v. Strategy Return comparison'.format(name),grid=False, figsize=(8, 5))
     
     X=hist_data['strategy'].cumsum().iloc[-1]-hist_data['market'].cumsum().iloc[-1]
     

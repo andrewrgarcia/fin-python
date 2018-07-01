@@ -1,0 +1,3 @@
+this is a test to check 
+if git can still find the folder folder where i update 
+my repository to another location.
