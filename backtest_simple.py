@@ -10,7 +10,7 @@ import pandas as pd
 
 import pandas_datareader.data as web
 import datetime as dt
-
+from cryptoreader import *
 
 '''# ==================== STOCK PARAMETERS GO HERE ========================='''
 
@@ -23,18 +23,34 @@ roll_mean2 = 63
 'tolerance for moving avg. comparison / regime determination'
 SD = 0.01
 
+'''# ===== CRYPTOCURRENCIES (Boolean to True, else False) ======='''
+crypto = True
+
+ticker_name = 'ETH'
+
 '''# ======================================================================='''
 
-    
+
+
 'beginning date of data collection'
-start = dt.datetime(2015, 1, 1)
+start = dt.datetime(2017, 1, 1)
 'end date'
 end = dt.datetime.now()
 
 close_str = 'close'
 
-
-hist_data = web.DataReader(ticker_name, 'iex', start, end)
+if crypto == True:
+    altcoin_data = {}
+    altcoins = ['ETH','LTC','XRP','ETC','STR','DASH','SC','XMR','XEM']
+    for altcoin in altcoins:
+        coinpair = 'BTC_{}'.format(altcoin)
+        crypto_price_df = get_crypto_data(start,end, coinpair)
+        altcoin_data[altcoin] = crypto_price_df
+    
+    hist_data = altcoin_data[ticker_name]
+else:
+    
+    hist_data = web.DataReader(ticker_name, 'iex', start, end)
 
 '''for data not present in quandl.com (i.e. coins), 
 need to comment out line 35, uncomment lines below / make code modifications''' 
