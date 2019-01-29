@@ -33,9 +33,11 @@ def get_json_data(json_url, cache_path):
 
 base_polo_url = 'https://poloniex.com/public?command=returnChartData&currencyPair={}&start={}&end={}&period={}'
 #start = datetime.strptime('2015-01-01', '%Y-%m-%d') # get data from the start of 2015
-start = dt.datetime(2017,1, 1)
+start = dt.datetime(2018,6, 1)
 
 end = dt.datetime.now() # up until today
+#end = dt.datetime(2017,10, 1) # up until today
+
 pediod = 86400 # pull daily data (86,400 seconds per day)
 
 def get_crypto_data(start,end,poloniex_pair):
@@ -45,7 +47,7 @@ def get_crypto_data(start,end,poloniex_pair):
     data_df = data_df.set_index('date')
     return data_df
 
-altcoins = ['ETH','LTC','XRP','ETC','STR','DASH','SC','XMR','XEM']
+altcoins = ['ETH','LTC','XRP','ETC','STR','DASH','SC','XMR','XEM','DOGE']
 
 altcoin_data = {}
 for altcoin in altcoins:
@@ -53,3 +55,5 @@ for altcoin in altcoins:
     crypto_price_df = get_crypto_data(start,end,coinpair)
     altcoin_data[altcoin] = crypto_price_df
    
+    
+get_crypto_data(start,end,'BTC_ETH')

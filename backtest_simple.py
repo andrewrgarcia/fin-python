@@ -23,7 +23,7 @@ roll_mean2 = 63
 'tolerance for moving avg. comparison / regime determination'
 SD = 0.01
 
-'''# ===== CRYPTOCURRENCIES (Boolean to True, else False) ======='''
+'''# ========== CRYPTOCURRENCIES (Boolean to True, else False) ============='''
 crypto = True
 
 ticker_name = 'ETH'
