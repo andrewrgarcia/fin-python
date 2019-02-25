@@ -10,7 +10,8 @@ import pandas as pd
 
 import pandas_datareader.data as web
 import datetime as dt
-from cryptoreader import *
+#from cryptoreader import *
+from binancereader import *
 
 '''# ==================== STOCK PARAMETERS GO HERE ========================='''
 
@@ -26,7 +27,7 @@ SD = 0.01
 '''# ========== CRYPTOCURRENCIES (Boolean to True, else False) ============='''
 crypto = True
 
-ticker_name = 'ETH'
+ticker_name = 'BNB'
 
 '''# ======================================================================='''
 
@@ -40,14 +41,8 @@ end = dt.datetime.now()
 close_str = 'close'
 
 if crypto == True:
-    altcoin_data = {}
-    altcoins = ['ETH','LTC','XRP','ETC','STR','DASH','SC','XMR','XEM']
-    for altcoin in altcoins:
-        coinpair = 'BTC_{}'.format(altcoin)
-        crypto_price_df = get_crypto_data(start,end, coinpair)
-        altcoin_data[altcoin] = crypto_price_df
-    
-    hist_data = altcoin_data[ticker_name]
+    hist_data = coindoll(ticker_name)
+
 else:
     
     hist_data = web.DataReader(ticker_name, 'iex', start, end)
