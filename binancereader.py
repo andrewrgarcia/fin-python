@@ -14,11 +14,11 @@ https://steemit.com/python/@marketstack/how-to-download-historical-price-data-fr
 import requests        # for making http requests to binance
 import json            # for parsing what binance sends back to us
 import pandas as pd    # for storing and manipulating the data we get back
-import numpy as np     # numerical python, i usually need this somewhere 
+import numpy as np     # numerical python, i usually need this somewhere
                        # and so i import by habit nowadays
 
 import matplotlib.pyplot as plt # for charts and such
-    
+
 import datetime as dt  # for dealing with times
 
 def get_bars(symbol, interval = '1d'):
@@ -31,18 +31,25 @@ def get_bars(symbol, interval = '1d'):
                  'close_time', 'qav', 'num_trades',
                  'taker_base_vol', 'taker_quote_vol', 'ignore']
    df.index = [dt.datetime.fromtimestamp(x/1000.0) for x in df.close_time]
-      
+
    return df
 
 
 def coindoll(symbol, interval = '1d'):
-    
-    df = get_bars(symbol + 'BTC', interval = interval)
-    
-    coinbtc = df['c'].astype('float')
-    btcusd = get_bars('BTCUSDT', interval = interval)['c'].astype('float')
-    transform = coinbtc *btcusd
-    df['close'] = transform
-    
-    
+
+    if symbol == 'BTC':
+        df = get_bars('BTCUSDT', interval = interval)
+        df['close'] = df['c'].astype('float')
+    else:
+        df = get_bars(symbol + 'BTC', interval = interval)
+
+        coinbtc = df['c'].astype('float')
+        btcusd = get_bars('BTCUSDT', interval = interval)['c'].astype('float')
+        transform = coinbtc *btcusd
+        df['close'] = transform
+
+
     return df
+
+#print(coindoll('BTC'))
+#print(coindoll('ETH'))
