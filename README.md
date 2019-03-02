@@ -20,9 +20,9 @@ Market v. Strategy
 
 Rel. return per run
 
-The figures showed here are the results of an optimization script _**cerberus33.py**_ which integrates _**tech_anlsys.py**_ to a [secret] Monte Carlo algorithm (not pushed here; confidential) which finds optimal backtesting parameters for a certain stock, showing optimal BUY-HOLD-SELL regimes for the historical period (step-wise line in red) through limited knowledge of future values.
+The figures showed here are the results of an optimization script _**cerberus33.py**_ which integrates _**tech_anlsys.py**_ to a [secret] Monte Carlo algorithm (not pushed here; confidential) which finds optimal backtesting parameters for a certain stock, showing optimal **BUY-HOLD/SELL** regimes for the historical period (step-wise line in red) through limited knowledge of future values.
 
 
-<img src="cerberus.png" alt="drawing" width="200"/>
+<img src="cerberus.png" alt="drawing" width="350"/>
 
-Cerberus the offspring of monsters Echidna and Typhon [Python :)]
+**Cerberus** the offspring of monsters Echidna and Typhon [Python] with its vicious heads **Buy** **Hold** **Sedl** :)

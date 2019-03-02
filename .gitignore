@@ -1,5 +1,6 @@
 #Ignore these
 vicious_gnaugas.py
+cerberus33.py
 __pycache__
 crypto/
 gnauga-results/
