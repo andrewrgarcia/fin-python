@@ -1,5 +1,4 @@
-# quant-python
-## Quantitative finance with python
+# Quantitative finance with python
 #### Andrew Garcia, 2019
 
 Published code _**backtest_simple.py**_ is an **ADAPTED** script from the codes from _**Python for Finance (Yves Hilpisch, 2014)**_ which show simple technical analysis algorithms for stocks. Now integrated with cryptocurrencies-importing capabilities from Binance (_**binancereader.py**_)
@@ -25,4 +24,4 @@ The figures showed here are the results of an optimization script _**cerberus33.
 
 <img src="cerberus.png" alt="drawing" width="350"/>
 
-**Cerberus** the offspring of monsters Echidna and Typhon [Python] with its vicious heads **Buy** **Hold** **Sedl** :)
+**Cerberus** the offspring of monsters Echidna and Typhon [Python] with its vicious heads **Buy** **Hodl** **Sell** :)

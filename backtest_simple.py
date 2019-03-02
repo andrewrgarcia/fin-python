@@ -4,6 +4,12 @@ Created on Tue Jun 12 11:54:40 2018
 
 @author: garci
 """
+'''backtest_simple.py : Core code for backtesting analysis with stock and
+cryptocurrencies importing capabilities from IEX and Binance, respectivelyself.
+Andrew Garcia 2018-2019
+
+Adapted from: published codes from Python for Finance (Yves Hilpisch, 2014)
+'''
 
 import numpy as np
 import pandas as pd
@@ -44,11 +50,11 @@ if crypto == True:
     hist_data = coindoll(ticker_name)
 
 else:
-    
+
     hist_data = web.DataReader(ticker_name, 'iex', start, end)
 
-'''for data not present in quandl.com (i.e. coins), 
-need to comment out line 35, uncomment lines below / make code modifications''' 
+'''for data not present in quandl.com (i.e. coins),
+need to comment out line 35, uncomment lines below / make code modifications'''
 #hist_data = pd.read_csv(ticker_name+'.csv')
 #hist_data.info()
 #
@@ -59,7 +65,7 @@ print(hist_data)
 hist_data[[close_str]].plot(title = '{} Historical Data'.format(ticker_name), grid=False, figsize=(8, 5))
 
 
-   
+
 ''' Historical data with moving averages '''
 
 hist_data[str(roll_mean1)+'d'] = np.round(pd.rolling_mean(hist_data[close_str], window=roll_mean1), 2)
@@ -80,7 +86,7 @@ hist_data['42-252'].tail()
 hist_data['regime'] = np.where(hist_data['42-252'] > SD, 1, 0)
 hist_data['regime'] = np.where(hist_data['42-252'] < -SD, -1, hist_data['regime'])
 hist_data['regime'].value_counts()
-hist_data['regplot']=max(hist_data[close_str])*(2+hist_data['regime'])/8 
+hist_data['regplot']=max(hist_data[close_str])*(2+hist_data['regime'])/8
 
 hist_data['regplot'].plot(title= '{} technical analysis'.format(ticker_name),  grid=False,lw=1.5)
 #plt.ylim([-1.1, 1.1])
@@ -97,5 +103,3 @@ X=hist_data['strategy'].cumsum().iloc[-1]-hist_data['market'].cumsum().iloc[-1]
 
 print('final data pt. difference b/t market & strat: ',X)
 #    return X
-
-
