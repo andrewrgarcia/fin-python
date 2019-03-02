@@ -2,7 +2,7 @@
 ## Quantitative finance with python
 #### Andrew Garcia, 2019
 
-Published code _**tech_anlsys.py**_ is an **ADAPTED** script from the codes from _**Python for Finance (Yves Hilpisch, 2014)**_ which show simple technical analysis algorithms for stocks.
+Published code _**backtest_simple.py**_ is an **ADAPTED** script from the codes from _**Python for Finance (Yves Hilpisch, 2014)**_ which show simple technical analysis algorithms for stocks. Now integrated with cryptocurrencies-importing capabilities from Binance (_**binancereader.py**_)
 
 ![Screenshot](Figure_1.png)
 
@@ -20,7 +20,7 @@ Market v. Strategy
 
 Rel. return per run
 
-The figures showed here are the results of an optimization script _**cerberus33.py**_ which integrates _**tech_anlsys.py**_ to a [secret] Monte Carlo algorithm (not pushed here; confidential) which finds optimal backtesting parameters for a certain stock, showing optimal **"BUY/HOLD/SELL"** regimes (step-wise red line in 2nd plot) for a certain trading window.
+The figures showed here are the results of an optimization script _**cerberus33.py**_ which integrates _**backtest_simple.py**_ to a [secret] Monte Carlo algorithm (not pushed here; confidential) which finds optimal backtesting parameters for a certain stock, showing optimal **"BUY/HOLD/SELL"** regimes (step-wise red line in 2nd plot) for a certain trading window.
 
 
 <img src="cerberus.png" alt="drawing" width="350"/>
