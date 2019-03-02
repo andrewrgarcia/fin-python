@@ -21,7 +21,10 @@ import matplotlib.pyplot as plt # for charts and such
 
 import datetime as dt  # for dealing with times
 
-def get_bars(symbol, interval = '1d'):
+#intrl = '1d'
+intrl = '4h'
+
+def get_bars(symbol, interval = intrl):
    root_url = 'https://api.binance.com/api/v1/klines'
    url = root_url + '?symbol=' + symbol + '&interval=' + interval
    data = json.loads(requests.get(url).text)
@@ -35,7 +38,7 @@ def get_bars(symbol, interval = '1d'):
    return df
 
 
-def coindoll(symbol, interval = '1d'):
+def coindoll(symbol, interval = intrl):
 
     if symbol == 'BTC':
         df = get_bars('BTCUSDT', interval = interval)
