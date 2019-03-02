@@ -22,6 +22,6 @@ Rel. return per run
 The figures showed here are the results of an optimization script _**cerberus33.py**_ which integrates _**backtest_simple.py**_ to a [secret] Monte Carlo algorithm (not pushed here; confidential) which finds optimal backtesting parameters for a certain stock, showing optimal **"BUY/HOLD/SELL"** regimes (step-wise red line in 2nd plot) for a certain trading window.
 
 
-<img src="cerberus.png" alt="drawing" width="350"/>
+<img src="cerberus_cartoon.png" alt="drawing" width="350"/>
 
 **Cerberus** the offspring of monsters Echidna and Typhon [Python] with its vicious heads **Buy** **Hodl** **Sell** :)

@@ -8,7 +8,7 @@ Created on Tue Jun 12 11:54:40 2018
 cryptocurrencies importing capabilities from IEX and Binance, respectivelyself.
 Andrew Garcia 2018-2019
 
-Adapted from: published codes from Python for Finance (Yves Hilpisch, 2014)
+Adapted from: published codes from "Python for Finance" (Yves Hilpisch, 2014)
 '''
 
 import numpy as np
