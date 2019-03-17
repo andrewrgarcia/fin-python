@@ -7,7 +7,7 @@ Created on Sun Mar  3 01:36:54 2019
 from trade_auth import keys
 from binance.client import Client
 from cerberus33 import *
-'''trading bot - developing stages
+'''trading interface: developing stages
 Andrew'''
 
 api_key, api_secret = keys()

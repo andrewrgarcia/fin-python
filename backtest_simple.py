@@ -21,7 +21,7 @@ from binancereader import *
 
 '''# ==================== STOCK PARAMETERS GO HERE ========================='''
 
-ticker_name='FNKO'
+ticker_name='SBUX'
 
 'moving averages to compare against'
 roll_mean1 = 21
@@ -31,9 +31,9 @@ roll_mean2 = 63
 SD = 0.01
 
 '''# ========== CRYPTOCURRENCIES (Boolean to True, else False) ============='''
-crypto = True
+crypto = False
 
-ticker_name = 'BNB'
+#ticker_name = 'BNB'
 
 '''# ======================================================================='''
 
@@ -86,20 +86,38 @@ hist_data['42-252'].tail()
 hist_data['regime'] = np.where(hist_data['42-252'] > SD, 1, 0)
 hist_data['regime'] = np.where(hist_data['42-252'] < -SD, -1, hist_data['regime'])
 hist_data['regime'].value_counts()
-hist_data['regplot']=max(hist_data[close_str])*(2+hist_data['regime'])/8
 
+hist_data['regplot']=max(hist_data[close_str])*(2+hist_data['regime'])/8
 hist_data['regplot'].plot(title= '{} technical analysis'.format(ticker_name),  grid=False,lw=1.5)
 #plt.ylim([-1.1, 1.1])
 
 '''Market / Strategy comparison '''
 
 hist_data['market'] = np.log(hist_data[close_str] / hist_data[close_str].shift(1))
+
 hist_data['strategy'] =  hist_data['market'] *(1+hist_data['regime'].shift(1))
 
+'''include Capital Gains tax for sold equities'''
+taxrate=0.2
+LS = len(hist_data['market'])
+
+capgains = 0
+for i in range(LS):
+    
+    if hist_data['regime'][i] == 1 and hist_data['regime'][(i+2)%LS] == -1:
+        
+        X_sell = hist_data['strategy'].cumsum().iloc[i+2] - hist_data['market'].cumsum().iloc[i+2]
+        taxed_sale = X_sell*taxrate
+        print(taxed_sale)
+        capgains += taxed_sale
+
+'''plot treatment -  final details'''
+        
+        
 hist_data[['market','strategy']].cumsum().apply(np.exp).\
 plot(title='{} Market v. Strategy Return comparison'.format(ticker_name),grid=False, figsize=(8, 5))
 
-X=hist_data['strategy'].cumsum().iloc[-1]-hist_data['market'].cumsum().iloc[-1]
+X=hist_data['strategy'].cumsum().iloc[-1] - hist_data['market'].cumsum().iloc[-1]
 
 print('final data pt. difference b/t market & strat: ',X)
 #    return X

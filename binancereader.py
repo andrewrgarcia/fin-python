@@ -41,8 +41,8 @@ KLINE_INTERVAL_1WEEK = '1w'
 KLINE_INTERVAL_1MONTH = '1M
 '''
 
-#INTERVAL = '1d'
-INTERVAL = '4h'
+INTERVAL = '1d'
+#INTERVAL = '4h'
 
 def get_bars(symbol, interval = INTERVAL):
    root_url = 'https://api.binance.com/api/v1/klines'
