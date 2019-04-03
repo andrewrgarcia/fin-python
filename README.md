@@ -19,7 +19,7 @@ Market v. Strategy
 
 Rel. return per run
 
-The figures showed here are the results of an optimization script _**blackswan.py**_ which integrates _**backtest_simple.py**_ to a [secret] Monte Carlo algorithm (not pushed here; confidential) which finds optimal backtesting parameters for a certain stock, showing optimal **"BUY/HOLD/SELL"** regimes (step-wise red line in 2nd plot) for a certain trading window.
+The figures showed here are the results of an optimization script _**blackswanclimb.py**_ which integrates _**backtest_simple.py**_ to a [secret] Monte Carlo algorithm (not pushed here; confidential) which finds optimal backtesting parameters for a certain stock, showing optimal **"BUY/HOLD/SELL"** regimes (step-wise red line in 2nd plot) for a certain trading window.
 
 
 <img src="black_swan.jpg" alt="drawing" width="350"/>
