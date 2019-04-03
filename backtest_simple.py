@@ -37,6 +37,13 @@ crypto = False
 
 '''# ======================================================================='''
 
+'''for data not present in Remote Data Access sources (iex, quandl, morningstar),
+uncomment lines below / make code modifications'''
+#hist_data = pd.read_csv(ticker_name+'.csv')
+#hist_data.info()
+#
+#hist_data[['date','Close']].plot(title = ticker_name, x='date', grid=False, figsize=(8, 5))
+
 
 
 'beginning date of data collection'
@@ -53,17 +60,10 @@ else:
 
     hist_data = web.DataReader(ticker_name, 'iex', start, end)
 
-'''for data not present in quandl.com (i.e. coins),
-need to comment out line 35, uncomment lines below / make code modifications'''
-#hist_data = pd.read_csv(ticker_name+'.csv')
-#hist_data.info()
-#
-#hist_data[['date','Close']].plot(title = ticker_name, x='date', grid=False, figsize=(8, 5))
 
 print(hist_data)
 
 hist_data[[close_str]].plot(title = '{} Historical Data'.format(ticker_name), grid=False, figsize=(8, 5))
-
 
 
 ''' Historical data with moving averages '''

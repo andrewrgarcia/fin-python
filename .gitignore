@@ -1,7 +1,8 @@
 #Ignore these
 
 cerberus33.py
+blackswan.py
 trade_auth.py
 cryptoreader.py
 __pycache__
-cerberus/
+blackswan/
