@@ -21,21 +21,21 @@ Published code _**backtest_simple.py**_ is an **ADAPTED** script from the codes 
 
 <img src="Figure_1.png" alt="drawing" width="350"/>
 
-**Figure # 1 -  Historical Data**
+**^^Plot # 1 -  Historical Data**
 
 <img src="Figure_2.png" alt="drawing" width="350"/>
 
-**Figure # 2 - Strategy results (Buy-sell-hold regime in red)**
+**^^Plot # 2 - Strategy results (Buy-sell-hold regime in red)**
 
 <img src="Figure_3.png" alt="drawing" width="350"/>
 
-**Figure # 3 - Market v. Strategy**
+**^^Plot # 3 - Market v. Strategy**
 
 ## blackswanclimb.py
 
 <img src="Figure_4.png" alt="drawing" width="350"/>
 
-**Figure # 4 - Rel. return per run**
+**^^Plot # 4 - Rel. return per run**
 
 This is the result of an optimization script _**blackswanclimb.py**_ which integrates _**backtest_simple.py**_ to a Monte Carlo algorithm (not pushed here; confidential) which finds optimal backtesting parameters for a certain stock, showing optimal **"BUY/HOLD/SELL"** regimes (step-wise red line in 2nd plot) for a certain trading window.
 
