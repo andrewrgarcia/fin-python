@@ -3,19 +3,20 @@
 
 Published code _**backtest_simple.py**_ is an **ADAPTED** script from the codes from _**Python for Finance (Yves Hilpisch, 2014)**_ which show simple technical analysis algorithms for stocks. Now integrated with cryptocurrencies-importing capabilities from Binance (_**binancereader.py**_)
 
-![Screenshot](Figure_1.png)
+<img src="Figure_1.png" alt="drawing" width="350"/>
 
 Historical Data
 
-![Screenshot](Figure_2.png)
+<img src="Figure_2.png" alt="drawing" width="350"/>
 
 Strategy results (Buy-sell-hold regime in red)
 
-![Screenshot](Figure_3.png)
+<img src="Figure_3.png" alt="drawing" width="350"/>
 
 Market v. Strategy
 
-![Screenshot](Figure_4.png)
+<img src="Figure_4.png" alt="drawing" width="350"/>
+
 
 Rel. return per run
 
