@@ -1,8 +1,12 @@
 #Ignore these
-
-cerberus33.py
-blackswanclimb.py
-trade_auth.py
-cryptoreader.py
 __pycache__
+
+#confidential
+blackswanclimb.py
 blackswan/
+
+#in progress
+trade_auth.py
+
+#discontinued
+cryptoreader.py
