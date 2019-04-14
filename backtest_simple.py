@@ -19,6 +19,7 @@ import datetime as dt
 #from cryptoreader import *
 from binancereader import *
 
+
 '''# ==================== STOCK PARAMETERS GO HERE ========================='''
 
 ticker_name='SBUX'
@@ -31,9 +32,9 @@ roll_mean2 = 63
 SD = 0.01
 
 '''# ========== CRYPTOCURRENCIES (Boolean to True, else False) ============='''
-crypto = False
+crypto = True
 
-#ticker_name = 'BNB'
+ticker_name = 'BNB'
 
 '''# ======================================================================='''
 
@@ -61,35 +62,38 @@ else:
     hist_data = web.DataReader(ticker_name, 'iex', start, end)
 
 
-print(hist_data)
-
-hist_data[[close_str]].plot(title = '{} Historical Data'.format(ticker_name), grid=False, figsize=(8, 5))
-
-
 ''' Historical data with moving averages '''
+
+
+print(hist_data)
+#print(hist_data.index)
+
+#hist_data[[close_str]].plot(title = '{} Historical Data'.format(ticker_name), grid=False, figsize=(8, 5))
+
 
 hist_data[str(roll_mean1)+'d'] = np.round(pd.rolling_mean(hist_data[close_str], window=roll_mean1), 2)
 hist_data[str(roll_mean2)+'d'] = np.round(pd.rolling_mean(hist_data[close_str], window=roll_mean2), 2)
 
 hist_data[[close_str, str(roll_mean1)+'d', str(roll_mean2)+'d']].tail()
 
-#    hist_data[['date',close_str, str(roll_mean1)+'d', str(roll_mean2)+'d']].plot(x='date',grid=False, figsize=(8, 5))
 hist_data[[close_str, str(roll_mean1)+'d', str(roll_mean2)+'d']].plot(grid=False, figsize=(8, 5))
+
 
 
 ''' buy / sell / hold regime determination '''
 
-hist_data['42-252'] = hist_data[str(roll_mean1)+'d'] - hist_data[str(roll_mean2)+'d']
+hist_data['mov_avg'] = hist_data[str(roll_mean1)+'d'] - hist_data[str(roll_mean2)+'d']
 
-hist_data['42-252'].tail()
+hist_data['mov_avg'].tail()
 
-hist_data['regime'] = np.where(hist_data['42-252'] > SD, 1, 0)
-hist_data['regime'] = np.where(hist_data['42-252'] < -SD, -1, hist_data['regime'])
+hist_data['regime'] = np.where(hist_data['mov_avg'] > SD, 1, 0)
+hist_data['regime'] = np.where(hist_data['mov_avg'] < -SD, -1, hist_data['regime'])
 hist_data['regime'].value_counts()
 
-hist_data['regplot']=max(hist_data[close_str])*(2+hist_data['regime'])/8
-hist_data['regplot'].plot(title= '{} technical analysis'.format(ticker_name),  grid=False,lw=1.5)
-#plt.ylim([-1.1, 1.1])
+hist_data['regplot']=max(hist_data[close_str])*(100+hist_data['regime'])/100
+hist_data['regplot'].plot(title= '{} technical analysis'.format(ticker_name),linestyle='--',  grid=False,lw=1.5)
+
+
 
 '''Market / Strategy comparison '''
 
@@ -103,21 +107,75 @@ LS = len(hist_data['market'])
 
 capgains = 0
 for i in range(LS):
-    
+
     if hist_data['regime'][i] == 1 and hist_data['regime'][(i+2)%LS] == -1:
-        
+
         X_sell = hist_data['strategy'].cumsum().iloc[i+2] - hist_data['market'].cumsum().iloc[i+2]
         taxed_sale = X_sell*taxrate
         print(taxed_sale)
         capgains += taxed_sale
 
 '''plot treatment -  final details'''
-        
-        
-hist_data[['market','strategy']].cumsum().apply(np.exp).\
-plot(title='{} Market v. Strategy Return comparison'.format(ticker_name),grid=False, figsize=(8, 5))
+
+
+#hist_data[['market','strategy']].cumsum().apply(np.exp).\
+#plot(title='{} Market v. Strategy Return comparison'.format(ticker_name),grid=False, figsize=(8, 5))
+hist_data[['market','strategy']]=hist_data[['market','strategy']].cumsum().apply(np.exp)
+hist_data[['market','strategy']].plot(title='{} Market v. Strategy Return comparison'.format(ticker_name),grid=False, figsize=(8, 5))
+
 
 X=hist_data['strategy'].cumsum().iloc[-1] - hist_data['market'].cumsum().iloc[-1]
 
 print('final data pt. difference b/t market & strat: ',X)
-#    return X
+
+
+
+
+
+'''PLOTLY (to public cloud)'''
+from plotly_cred import info
+
+import plotly
+plotly.tools.set_credentials_file(username=info()[0], api_key=info()[1])
+import plotly.plotly as py
+import plotly.graph_objs as go
+
+#'PLOT # 1: Stock Price, Moving Averages and Buy-Sell Regimes'
+
+if crypto == False:
+
+    trace = go.Ohlc(x=hist_data.index,
+                    open=hist_data['open'],
+                    high=hist_data['high'],
+                    low=hist_data['low'],
+                    close=hist_data[close_str])
+    
+if crypto == True:
+
+    trace = go.Ohlc(x=hist_data.index,
+                    open=hist_data['o'],
+                    high=hist_data['h'],
+                    low=hist_data['l'],
+                    close=hist_data['close'])
+
+trace2 = go.Scatter(x=hist_data.index,
+                    y=hist_data[str(roll_mean1)+'d'])
+
+trace3 = go.Scatter(x=hist_data.index,
+                    y=hist_data[str(roll_mean2)+'d'])
+
+trace4 = go.Scatter(x=hist_data.index,
+                    y=hist_data['regplot'])
+
+data = [trace,trace2,trace3,trace4]
+py.iplot(data, filename=ticker_name+' Stock Price')
+
+
+'PLOT # 2: Backtesting Strategy Assessment'
+trce1 = go.Scatter(x=hist_data.index,
+                   y=hist_data['market'])
+trce2 = go.Scatter(x=hist_data.index,
+                   y=hist_data['strategy'])
+
+data= [trce1,trce2]
+py.iplot(data, filename=ticker_name+' Strategy Assessment')
