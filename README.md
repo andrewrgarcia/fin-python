@@ -19,9 +19,9 @@ limitations under the License.
 
 Published code _**backtest_simple.py**_ is an **ADAPTED** script from the codes from _**Python for Finance (Yves Hilpisch, 2014)**_ which show simple technical analysis algorithms for stocks. Now integrated with cryptocurrencies-importing capabilities from Binance (_**binancereader.py**_)
 
-<a href="https://plot.ly/~andrewrgarcia/18.embed"><img src="Figure_1.png" alt="drawing" width="350"/> 
+<a href="https://plot.ly/~andrewrgarcia/18.embed"><img src="Figure_1.png" alt="drawing" width="450"/> 
 
-<a href="https://plot.ly/~andrewrgarcia/12.embed"><img src="Figure_2.png" alt="drawing" width="350"/>
+<a href="https://plot.ly/~andrewrgarcia/12.embed"><img src="Figure_2.png" alt="drawing" width="450"/>
 
 
 ## blackswanclimb.py
