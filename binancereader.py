@@ -59,20 +59,18 @@ def get_bars(symbol, interval = INTERVAL):
 
 
 def coindoll(symbol, interval = INTERVAL):
-
     if symbol == 'BTC':
+        'read BTC to USD'
         df = get_bars('BTCUSDT', interval = interval)
         df['close'] = df['c'].astype('float')
     else:
+        'read coin to USD'
         df = get_bars(symbol + 'BTC', interval = interval)
-
-        coinbtc = df['c'].astype('float')
         btcusd = get_bars('BTCUSDT', interval = interval)['c'].astype('float')
-        transform = coinbtc *btcusd
-        df['close'] = transform
+        df['close'] = df['c'].astype('float')*btcusd
+        df['o'] = df['o'].astype('float')*btcusd
+        df['h'] = df['h'].astype('float')*btcusd
+        df['l'] = df['l'].astype('float')*btcusd
 
 
     return df
-
-#print(coindoll('BTC'))
-#print(coindoll('ETH'))
