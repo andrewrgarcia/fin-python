@@ -140,7 +140,7 @@ plotly.tools.set_credentials_file(username=info()[0], api_key=info()[1])
 import plotly.plotly as py
 import plotly.graph_objs as go
 
-#'PLOT # 1: Stock Price, Moving Averages and Buy-Sell Regimes'
+'PLOT # 1: Stock Price, Moving Averages and Buy-Sell Regimes'
 
 if crypto == False:
 
@@ -156,26 +156,37 @@ if crypto == True:
                     open=hist_data['o'],
                     high=hist_data['h'],
                     low=hist_data['l'],
-                    close=hist_data['close'])
+                    close=hist_data['close'],
+                    name = 'candlesticks')
 
 trace2 = go.Scatter(x=hist_data.index,
-                    y=hist_data[str(roll_mean1)+'d'])
+                    y=hist_data[str(roll_mean1)+'d'],
+                    name = 'moving average trend')
 
 trace3 = go.Scatter(x=hist_data.index,
-                    y=hist_data[str(roll_mean2)+'d'])
+                    y=hist_data[str(roll_mean2)+'d'],
+                    name = 'moving average baseline')
 
 trace4 = go.Scatter(x=hist_data.index,
-                    y=hist_data['regplot'])
+                    y=hist_data['regplot'],
+                    name = 'buy-hodl-sell regimes')
 
 data = [trace,trace2,trace3,trace4]
-py.iplot(data, filename=ticker_name+' Stock Price')
+
+layout=go.Layout(title=ticker_name+' Equity', xaxis={'title':'Date'}, yaxis={'title':''})
+fig = go.Figure(data=data, layout=layout)
+py.iplot(fig, filename=ticker_name+' Equity')
 
 
 'PLOT # 2: Backtesting Strategy Assessment'
 trce1 = go.Scatter(x=hist_data.index,
-                   y=hist_data['market'])
+                   y=hist_data['market'],
+                   name ='market value')
 trce2 = go.Scatter(x=hist_data.index,
-                   y=hist_data['strategy'])
+                   y=hist_data['strategy'],
+                   name ='strategy value')
 
 data= [trce1,trce2]
-py.iplot(data, filename=ticker_name+' Strategy Assessment')
+layout=go.Layout(title=ticker_name+' Strategy Assessment', xaxis={'title':'Date'}, yaxis={'title':''})
+fig = go.Figure(data=data, layout=layout)
+py.iplot(fig, filename=ticker_name+' Strategy Assessment')
