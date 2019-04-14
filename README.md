@@ -21,11 +21,13 @@ Published code _**backtest_simple.py**_ is an **ADAPTED** script from the codes 
 
 <img src="Figure_1.png" alt="drawing" width="350"/>
 
-**Fig 1 -  BNB Price Data**<a href="https://plot.ly/~andrewrgarcia/10.embed">
+<a href="https://plot.ly/~andrewrgarcia/10.embed">
+**Fig 1 -  BNB Price Data**
 
 <img src="Figure_2.png" alt="drawing" width="350"/>
 
-**Fig 2 - BNB Strategy Assessment**<a href="https://plot.ly/~andrewrgarcia/12.embed">
+<a href="https://plot.ly/~andrewrgarcia/12.embed">
+**Fig 2 - BNB Strategy Assessment**
 
 ## blackswanclimb.py
 
