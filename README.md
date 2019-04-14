@@ -21,12 +21,8 @@ Published code _**backtest_simple.py**_ is an **ADAPTED** script from the codes 
 
 <a href="https://plot.ly/~andrewrgarcia/18.embed"><img src="Figure_1.png" alt="drawing" width="350"/> 
 
-**Fig 1**
-
-
 <a href="https://plot.ly/~andrewrgarcia/12.embed"><img src="Figure_2.png" alt="drawing" width="350"/>
 
-**Fig 2**
 
 ## blackswanclimb.py
 
