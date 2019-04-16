@@ -26,5 +26,3 @@ Published code _**backtest_simple.py**_ is an **ADAPTED** script from the script
 ## GBM.py
 
 GBM (Geometric Brownian motion) template to model stock prices in the Black–Scholes model
-
-<img src="black_swan.jpg" alt="drawing" width="350"/>
