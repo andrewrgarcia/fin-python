@@ -6,7 +6,7 @@ Created on Sat Jul  7 00:27:07 2018
 """
 
 '''
-Geometric Brownian Motion (GBM) algorithm for stock prediction
+Geometric Brownian Motion (GBM) algorithm 
 
 trading days:
 annual drift (mu) and volatility (sig)

@@ -24,11 +24,4 @@ Published code _**backtest_simple.py**_ is an **ADAPTED** script from the script
 <a href="https://plot.ly/~andrewrgarcia/42.embed"><img src="BNB Coin Strategy Assessment.png" alt="drawing" width="500"/>
 
 
-## blackswanclimb.py
-
-[in .gitignore] _**blackswanclimb.py**_ is an optimization script which integrates _**backtest_simple.py**_ to a brute force Monte Carlo method (not pushed here; confidential) which finds optimal backtesting parameters for a certain stock, indicating **"BUY/HOLD/SELL"** regimes for a certain trading window.
-
-
 <img src="black_swan.jpg" alt="drawing" width="350"/>
-
-**It's a black swan!**
