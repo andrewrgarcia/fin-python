@@ -17,11 +17,14 @@ limitations under the License.
 
 ## backtest_simple.py
 
-Published code _**backtest_simple.py**_ is an **ADAPTED** script from the scripts in _**Python for Finance (Yves Hilpisch, 2014)**_ which show simple technical analysis algorithms for stocks. Now integrated with cryptocurrencies-importing capabilities from Binance (_**binancereader.py**_) and publishing to plot.ly
+Published code _**backtest_simple.py**_ is an **ADAPTED** script from the scripts in _**Python for Finance (Yves Hilpisch, 2014)**_ which show simple technical analysis algorithms for stocks. The algorithm has been adapted to import historical data from the web through *working* APIs as the Yahoo API (in Yves' 2014 book) has been deprecated. I have also recently added cryptocurrencies-importing capabilities from Binance (_**binancereader.py**_) and plot.ly publishing functionality.
 
-<a href="https://plot.ly/~andrewrgarcia/40.embed"><img src="BNB Coin.png" alt="drawing" width="500"/>
+<a href="https://plot.ly/~andrewrgarcia/40.embed"><img src="BNB Coin.png" alt="drawing" width="500"/></a>
 
-<a href="https://plot.ly/~andrewrgarcia/42.embed"><img src="BNB Coin Strategy Assessment.png" alt="drawing" width="500"/>
+<a href="https://plot.ly/~andrewrgarcia/42.embed"><img src="BNB Coin Strategy Assessment.png" alt="drawing" width="500"/></a>
 
+## GBM.py
+
+GBM (Geometric Brownian motion) template to model stock prices in the Black–Scholes model
 
 <img src="black_swan.jpg" alt="drawing" width="350"/>
