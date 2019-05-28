@@ -19,9 +19,7 @@ limitations under the License.
 
 Published code _**backtest_simple.py**_ is an **ADAPTED** script from the scripts in _**Python for Finance (Yves Hilpisch, 2014)**_ which show simple technical analysis algorithms for stocks. The algorithm has been adapted to import historical data from the web through *working* APIs as the Yahoo API (in Yves' 2014 book) has been deprecated. I have also recently added cryptocurrencies-importing capabilities from Binance (_**binancereader.py**_) and plot.ly publishing functionality.
 
-<a href="https://plot.ly/~andrewrgarcia/40.embed"><img src="BNB Coin.png" alt="drawing" width="500"/></a>
-
-<a href="https://plot.ly/~andrewrgarcia/42.embed"><img src="BNB Coin Strategy Assessment.png" alt="drawing" width="500"/></a>
+<a href="https://plot.ly/~andrewrgarcia/82.embed"><img src="Bitcoin.png" alt="drawing" width="500"/></a>
 
 ## GBM.py
 
