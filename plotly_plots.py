@@ -9,6 +9,7 @@ from plotly_cred import info
 
 import plotly
 plotly.tools.set_credentials_file(username=info()[0], api_key=info()[1])
+#import plotly_express as px
 import plotly.plotly as py
 import plotly.graph_objs as go
 from binancereader import *
@@ -52,7 +53,7 @@ def plyfin(hist_data,ticker_name,roll_mean1,roll_mean2,crypto):
     data = [trace,trace2,trace3,trace4]
     
     layout=go.Layout(title=ticker_name+'' if crypto == True \
-                     else ticker_name+'', xaxis={'title':'Date'}, yaxis={'title':''}) 
+                     else ticker_name+'', xaxis={'title':'Date'}, yaxis={'title':'Analysis: Andrew Garcia'} ) 
     
     fig = go.Figure(data=data, layout=layout)
     py.iplot(fig, filename=ticker_name+'' if crypto == True else ticker_name+' Stock')
@@ -70,6 +71,7 @@ def plyfin(hist_data,ticker_name,roll_mean1,roll_mean2,crypto):
     layout=go.Layout(title=ticker_name+' Coin Strategy Assessment' if crypto == True \
                      else ticker_name+' Stock Strategy Assessment', xaxis={'title':'Date'}, yaxis={'title':''})
     fig = go.Figure(data=data, layout=layout)
+#    fig.layout.template = 'plotly_dark'
     py.iplot(fig, filename=ticker_name+' Coin Strategy Assessment' if crypto == True \
                      else ticker_name+' Stock Strategy Assessment')
     
