@@ -50,7 +50,11 @@ def plyfin(hist_data,ticker_name,roll_mean1,roll_mean2,crypto):
                         y=hist_data['regplot'],
                         name = 'buy-hold-sell regimes')
     
-    data = [trace,trace2,trace3,trace4]
+    trace5 = go.Scatter(x=hist_data.index,
+                        y=hist_data['gorwth'],
+                        name = 'growth w/ strategy')
+    
+    data = [trace,trace2,trace3,trace4,trace5]
     
     layout=go.Layout(title=ticker_name+'' if crypto == True \
                      else ticker_name+'', xaxis={'title':'Date'}, yaxis={'title':'Analysis: Andrew Garcia'} ) 
@@ -60,20 +64,20 @@ def plyfin(hist_data,ticker_name,roll_mean1,roll_mean2,crypto):
     
     
     'PLOT # 2: Backtesting Strategy Assessment'
-    trce1 = go.Scatter(x=hist_data.index,
-                       y=hist_data['market'],
-                       name ='market value')
-    trce2 = go.Scatter(x=hist_data.index,
-                       y=hist_data['strategy'],
-                       name ='strategy value')
-    
-    data= [trce1,trce2]
-    layout=go.Layout(title=ticker_name+' Coin Strategy Assessment' if crypto == True \
-                     else ticker_name+' Stock Strategy Assessment', xaxis={'title':'Date'}, yaxis={'title':''})
-    fig = go.Figure(data=data, layout=layout)
-#    fig.layout.template = 'plotly_dark'
-    py.iplot(fig, filename=ticker_name+' Coin Strategy Assessment' if crypto == True \
-                     else ticker_name+' Stock Strategy Assessment')
+#    trce1 = go.Scatter(x=hist_data.index,
+#                       y=hist_data['market'],
+#                       name ='market value')
+#    trce2 = go.Scatter(x=hist_data.index,
+#                       y=hist_data['strategy'],
+#                       name ='strategy value')
+#    
+#    data= [trce1,trce2]
+#    layout=go.Layout(title=ticker_name+' Coin Strategy Assessment' if crypto == True \
+#                     else ticker_name+' Stock Strategy Assessment', xaxis={'title':'Date'}, yaxis={'title':''})
+#    fig = go.Figure(data=data, layout=layout)
+##    fig.layout.template = 'plotly_dark'
+#    py.iplot(fig, filename=ticker_name+' Coin Strategy Assessment' if crypto == True \
+#                     else ticker_name+' Stock Strategy Assessment')
     
     print('Confirmation: plots sent to plot.ly SUCCESSFUL')
     
