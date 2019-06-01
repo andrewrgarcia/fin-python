@@ -51,7 +51,7 @@ def plyfin(hist_data,ticker_name,roll_mean1,roll_mean2,crypto):
                         name = 'buy-hold-sell regimes')
     
     trace5 = go.Scatter(x=hist_data.index,
-                        y=hist_data['gorwth'],
+                        y=hist_data['relgrowth'],
                         name = 'growth w/ strategy')
     
     data = [trace,trace2,trace3,trace4,trace5]

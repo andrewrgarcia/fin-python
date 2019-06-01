@@ -30,7 +30,7 @@ roll_mean1 = 21
 roll_mean2 = 63
 
 'tolerance for moving avg. comparison / regime determination'
-SD = 0.01
+SD = 0.1
 
 '''# ========== CRYPTOCURRENCIES (Boolean to True, else False) ============='''
 crypto = True
@@ -122,7 +122,12 @@ for i in range(LS):
 #hist_data[['market','strategy']].cumsum().apply(np.exp).\
 #plot(title='{} Market v. Strategy Return comparison'.format(ticker_name),grid=False, figsize=(8, 5))
 hist_data[['market','strategy']]=hist_data[['market','strategy']].cumsum().apply(np.exp)
-hist_data[['market','strategy']].plot(title='{} Market v. Strategy Return comparison'.format(ticker_name),grid=False, figsize=(8, 5))
+
+hist_data['relgrowth'] = hist_data['strategy']*hist_data[close_str]
+hist_data['relgrowth'].plot()
+
+
+#hist_data[['market','strategy']].plot(title='{} Market v. Strategy Return comparison'.format(ticker_name),grid=False, figsize=(8, 5))
 
 
 X=hist_data['strategy'].cumsum().iloc[-1] - hist_data['market'].cumsum().iloc[-1]
