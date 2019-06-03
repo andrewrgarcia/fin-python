@@ -39,11 +39,11 @@ def plyfin(hist_data,ticker_name,roll_mean1,roll_mean2,crypto):
                         name = 'candlesticks')
     
     trace2 = go.Scatter(x=hist_data.index,
-                        y=hist_data[str(roll_mean1)+'d'],
+                        y=hist_data[str(roll_mean1)+' obs'],
                         name = 'moving average trend')
     
     trace3 = go.Scatter(x=hist_data.index,
-                        y=hist_data[str(roll_mean2)+'d'],
+                        y=hist_data[str(roll_mean2)+' obs'],
                         name = 'moving average baseline')
     
     trace4 = go.Scatter(x=hist_data.index,
@@ -57,7 +57,7 @@ def plyfin(hist_data,ticker_name,roll_mean1,roll_mean2,crypto):
     data = [trace,trace2,trace3,trace4,trace5]
     
     layout=go.Layout(title=ticker_name+'' if crypto == True \
-                     else ticker_name+'', xaxis={'title':'Date'}, yaxis={'title':'Analysis: Andrew Garcia'} ) 
+                     else ticker_name+'', xaxis={'title':'Date'}, yaxis={'title':'*from Brute Force Opt. Runs (Andrew)'} ) 
     
     fig = go.Figure(data=data, layout=layout)
     py.iplot(fig, filename=ticker_name+'' if crypto == True else ticker_name+' Stock')

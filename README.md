@@ -21,6 +21,8 @@ Published code _**backtest_simple.py**_ is an **ADAPTED** script from the script
 
 <a href="https://plot.ly/~andrewrgarcia/86.embed"><img src="Bitcoin.png" alt="drawing" width="500"/></a>
 
+<a href="https://plot.ly/~andrewrgarcia/96.embed"><img src="Harmony.png" alt="drawing" width="500"/></a>
+
 ## GBM.py
 
 GBM (Geometric Brownian motion) template to model stock prices in the Black–Scholes model
