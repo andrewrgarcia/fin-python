@@ -18,7 +18,7 @@ import pandas_datareader.data as web
 import datetime as dt
 #from cryptoreader import *
 from binancereader import *
-from plotly_plots import plyfin
+#from plotly_plots import plyfin
 
 
 '''# ==================== STOCK PARAMETERS GO HERE ========================='''
@@ -100,7 +100,7 @@ hist_data['regplot'].plot(title= '{} technical analysis'.format(ticker_name),lin
 
 hist_data['market'] = np.log(hist_data[close_str] / hist_data[close_str].shift(1))
 
-hist_data['strategy'] =  hist_data['market'] *(1+hist_data['regime'].shift(1))
+#hist_data['strategy'] =  hist_data['market'] *(1+hist_data['regime'].shift(1))
 
 '''include Capital Gains tax for sold equities'''
 taxrate=0.2
@@ -135,5 +135,5 @@ X=hist_data['strategy'].cumsum().iloc[-1] - hist_data['market'].cumsum().iloc[-1
 print('final data pt. difference b/t market & strat: ',X)
 
 'plot.ly: to public cloud'
-plyfin(hist_data,ticker_name,roll_mean1,roll_mean2,crypto)
+#plyfin(hist_data,ticker_name,roll_mean1,roll_mean2,crypto)
 

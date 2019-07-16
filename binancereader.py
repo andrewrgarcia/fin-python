@@ -58,19 +58,39 @@ def get_bars(symbol, interval = INTERVAL):
    return df
 
 
-def coindoll(symbol, interval = INTERVAL):
-    if symbol == 'BTC':
-        'read BTC to USD'
-        df = get_bars('BTCUSDT', interval = interval)
-        df['close'] = df['c'].astype('float')
+def coindoll(symbol, interval = INTERVAL,rate='USDT'):
+    if rate == 'USDT':
+        if symbol == 'BTC':
+            'read BTC to USD'
+            df = get_bars('BTCUSDT', interval = interval)
+            df['close'] = df['c'].astype('float')
+            df['open'] = df['o'].astype('float')
+            df['high'] = df['h'].astype('float')
+            df['low'] = df['l'].astype('float')
+        else:
+            'read coin to USD'
+            df = get_bars(symbol + 'BTC', interval = interval)
+            btcusd = get_bars('BTCUSDT', interval = interval)['c'].astype('float')
+            df['close'] = df['c'].astype('float')*btcusd
+            df['open'] = df['o'].astype('float')*btcusd
+            df['high'] = df['h'].astype('float')*btcusd
+            df['low'] = df['l'].astype('float')*btcusd
+            
     else:
-        'read coin to USD'
-        df = get_bars(symbol + 'BTC', interval = interval)
-        btcusd = get_bars('BTCUSDT', interval = interval)['c'].astype('float')
-        df['close'] = df['c'].astype('float')*btcusd
-        df['o'] = df['o'].astype('float')*btcusd
-        df['h'] = df['h'].astype('float')*btcusd
-        df['l'] = df['l'].astype('float')*btcusd
-
+        if symbol == 'BTC':
+            'read BTC to USD'
+            df = get_bars('BTCUSDT', interval = interval)
+            df['close'] = df['c'].astype('float')
+            df['open'] = df['o'].astype('float')
+            df['high'] = df['h'].astype('float')
+            df['low'] = df['l'].astype('float')
+        else:
+            'read coin to USD'
+            df = get_bars(symbol + 'BTC', interval = interval)
+#            btcusd = get_bars('BTCUSDT', interval = interval)['c'].astype('float')
+            df['close'] = df['c'].astype('float')
+            df['open'] = df['o'].astype('float')
+            df['high'] = df['h'].astype('float')
+            df['low'] = df['l'].astype('float')
 
     return df
