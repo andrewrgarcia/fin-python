@@ -58,8 +58,8 @@ def get_bars(symbol, interval = INTERVAL):
    return df
 
 
-def coindoll(symbol, interval = INTERVAL,rate='USDT'):
-    if rate == 'USDT':
+def coindoll(symbol, interval = INTERVAL,weight='USDT'):
+    if weight == 'USDT':
         if symbol == 'BTC':
             'read BTC to USD'
             df = get_bars('BTCUSDT', interval = interval)

@@ -26,8 +26,8 @@ from binancereader import *
 ticker_name='SBUX'
 
 'moving averages to compare against'
-roll_mean1 = 21
-roll_mean2 = 63
+roll_mean1 = 5
+roll_mean2 = 15
 
 'tolerance for moving avg. comparison / regime determination'
 SD = 0.1
@@ -35,7 +35,7 @@ SD = 0.1
 '''# ========== CRYPTOCURRENCIES (Boolean to True, else False) ============='''
 crypto = True
 
-ticker_name = 'BNB'
+ticker_name = 'BTC'
 
 '''# ======================================================================='''
 
@@ -56,7 +56,7 @@ end = dt.datetime.now()
 close_str = 'close'
 
 if crypto == True:
-    hist_data = coindoll(ticker_name)
+    hist_data = coindoll(ticker_name,interval = '1w',weight='USDT')
 
 else:
 
@@ -67,23 +67,26 @@ else:
 
 
 print(hist_data)
+
 #print(hist_data.index)
 
 #hist_data[[close_str]].plot(title = '{} Historical Data'.format(ticker_name), grid=False, figsize=(8, 5))
 
 
-hist_data[str(roll_mean1)+'d'] = np.round(pd.rolling_mean(hist_data[close_str], window=roll_mean1), 2)
-hist_data[str(roll_mean2)+'d'] = np.round(pd.rolling_mean(hist_data[close_str], window=roll_mean2), 2)
+#hist_data[str(roll_mean1)+'d MA'] = np.round(pd.rolling_mean(hist_data[close_str], window=roll_mean1), 2)
+#hist_data[str(roll_mean2)+'d MA'] = np.round(pd.rolling_mean(hist_data[close_str], window=roll_mean2), 2)
+hist_data[str(roll_mean1)+'d MA'] = hist_data[close_str].rolling(window=roll_mean1).mean()
+hist_data[str(roll_mean2)+'d MA'] = hist_data[close_str].rolling(window=roll_mean2).mean()
 
-hist_data[[close_str, str(roll_mean1)+'d', str(roll_mean2)+'d']].tail()
+hist_data[[close_str, str(roll_mean1)+'d MA', str(roll_mean2)+'d MA']].tail()
 
-hist_data[[close_str, str(roll_mean1)+'d', str(roll_mean2)+'d']].plot(grid=False, figsize=(8, 5))
+hist_data[[close_str, str(roll_mean1)+'d MA', str(roll_mean2)+'d MA']].plot(grid=False)
 
 
 
 ''' buy / sell / hold regime determination '''
 
-hist_data['mov_avg'] = hist_data[str(roll_mean1)+'d'] - hist_data[str(roll_mean2)+'d']
+hist_data['mov_avg'] = hist_data[str(roll_mean1)+'d MA'] - hist_data[str(roll_mean2)+'d MA']
 
 hist_data['mov_avg'].tail()
 
@@ -91,16 +94,17 @@ hist_data['regime'] = np.where(hist_data['mov_avg'] > SD, 1, 0)
 hist_data['regime'] = np.where(hist_data['mov_avg'] < -SD, -1, hist_data['regime'])
 hist_data['regime'].value_counts()
 
-hist_data['regplot']=max(hist_data[close_str])*(100+hist_data['regime'])/100
-hist_data['regplot'].plot(title= '{} technical analysis'.format(ticker_name),linestyle='--',  grid=False,lw=1.5)
+#hist_data['buy hold sell']=max(hist_data[close_str])*(100+hist_data['regime'])/100
+hist_data['buy hold sell']=max(hist_data[close_str])*(100+60*hist_data['regime'])/100
 
+hist_data['buy hold sell'].plot(title= '{} technical analysis'.format(ticker_name),linestyle='--',  grid=False,lw=1.5)
 
 
 '''Market / Strategy comparison '''
 
 hist_data['market'] = np.log(hist_data[close_str] / hist_data[close_str].shift(1))
 
-#hist_data['strategy'] =  hist_data['market'] *(1+hist_data['regime'].shift(1))
+hist_data['strategy'] =  hist_data['market'] *(1+hist_data['regime'].shift(1))
 
 '''include Capital Gains tax for sold equities'''
 taxrate=0.2
@@ -123,10 +127,10 @@ for i in range(LS):
 #plot(title='{} Market v. Strategy Return comparison'.format(ticker_name),grid=False, figsize=(8, 5))
 hist_data[['market','strategy']]=hist_data[['market','strategy']].cumsum().apply(np.exp)
 
-hist_data['relgrowth'] = hist_data['strategy']*hist_data[close_str]
-hist_data['relgrowth'].plot()
+hist_data['strategy return'] = hist_data['strategy']*hist_data[close_str]
+hist_data['strategy return'].plot()
 
-
+plt.legend()
 #hist_data[['market','strategy']].plot(title='{} Market v. Strategy Return comparison'.format(ticker_name),grid=False, figsize=(8, 5))
 
 

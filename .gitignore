@@ -6,6 +6,7 @@ plotly_cred.py
 blackswanclimb.py
 black_swan.jpg
 blackswan/
+
 .ipynb_checkpoints
 
 
@@ -13,6 +14,4 @@ blackswan/
 trade_auth.py
 
 #discontinued
-cryptoreader.py
-binancereader_old.py
-binancereader_csticks.py
+_old/

@@ -4,9 +4,13 @@ Created on Sat Jul 13 16:58:54 2019
 
 @author: garci
 """
+'''andrewsticks.py : A script for making candlestick charts from OHLC data
+exported from Binance exchange
+Andrew Garcia 2019'''
+
+
 from mpl_finance import candlestick2_ohlc
 from mpl_finance import candlestick_ohlc
-
 
 
 import matplotlib.pyplot as plt
@@ -17,10 +21,10 @@ import binancereader as brc
 
 import matplotlib.dates as mdates
 
-def chart(curr='BTC', invl='1M', rate='USDT',mano1=0,mano2=0,tol=''):
-    #curr, invl, rate = 'BTC', '1h', 'b'
+def chart(curr='BTC', invl='1M', weight='USDT',mano1=0,mano2=0,tol='',\
+          title=str(datetime.datetime.now()),xaxis=''):
     
-    quotes = brc.coindoll(curr, invl,rate)
+    quotes = brc.coindoll(curr, invl,weight)
     
     fig, ax = plt.subplots()
     
@@ -29,13 +33,19 @@ def chart(curr='BTC', invl='1M', rate='USDT',mano1=0,mano2=0,tol=''):
              quotes['open'],quotes['high'],quotes['low'],quotes['close'])
     
     
+    wadth = 0.02
     candlestick_ohlc(ax,new,\
-                     width= 0.5 if invl == '1d' \
-                     else 10 if invl == '1M'\
-                     else 0.08 if invl == '4h' \
-                     else 0.02 if invl == '1h' \
-                     else 0.0003 if invl == '1m' \
-                     else 0.001,colorup='dodgerblue', colordown='#CD919E')
+                     width= wadth if invl == '1h' \
+
+                     else wadth*int(invl[:-1])/60 if invl[-1:] == 'm' \
+                     else wadth*int(invl[:-1]) if invl[-1:] == 'h' \
+                     else wadth*24*int(invl[:-1]) if invl[-1:] == 'd' \
+                     else wadth*24*7*int(invl[:-1]) if invl[-1:] == 'w' \
+                     else wadth*24*7*4*int(invl[:-1]) if invl[-1:] == 'M' \
+                     else 0.001,\
+                     colorup='dodgerblue', colordown='#CD919E')
+#                     colorup='dodgerblue', colordown='gray')
+
     
     ma1=quotes['close'].rolling(mano1).mean()
     ma2=quotes['close'].rolling(mano2).mean()
@@ -46,11 +56,13 @@ def chart(curr='BTC', invl='1M', rate='USDT',mano1=0,mano2=0,tol=''):
     
     ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M:%S'))
     fig.autofmt_xdate()
-    fig.tight_layout()
-    plt.ylabel('BINANCE: '+curr+'USDT' if rate == 'USDT' else 'BINANCE: '+curr+'BTC', size=14)
+
+    plt.ylabel('BINANCE: '+curr+'USDT' if weight == 'USDT' else 'BINANCE: '+curr+'BTC', size=14)
+    plt.xlabel(xaxis)
     #plt.ylabel('$'+curr+'\)
-    
+    plt.title(title)
+    fig.tight_layout()
     plt.show()
     
-chart()
-#chart(curr='BTC', invl='1h', rate='b',mano1=11,mano2=22)
+    
+#chart(invl='1m')

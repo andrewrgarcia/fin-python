@@ -15,19 +15,18 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-## backtest_simple.py
-
-Published code _**backtest_simple.py**_ is an **ADAPTED** script from the scripts in _**Python for Finance (Yves Hilpisch, 2014)**_ which show simple technical analysis algorithms for stocks. The algorithm has been adapted to import historical data from the web through *working* APIs as the Yahoo API (in Yves' 2014 book) has been deprecated. I have also recently added cryptocurrencies-importing capabilities from Binance (_**binancereader.py**_) and plotly publishing functionality.
-
-<a href="https://plot.ly/~andrewrgarcia/86.embed"><img src="Bitcoin.png" alt="drawing" width="500"/></a>
-
-<a href="https://plot.ly/~andrewrgarcia/96.embed"><img src="Harmony.png" alt="drawing" width="500"/></a>
-
 ## andrewsticks.py
 
 User-friendly script to turn stock market / crypto data to candlesticks (OHLC charts)
 
 <img src="BTC_andrewsticks.png" alt="drawing" width="500"/></a>
+
+## backtest_simple.py
+
+Published code _**backtest_simple.py**_ is an **ADAPTED** script from the scripts in _**Python for Finance (Yves Hilpisch, 2014)**_ which show simple technical analysis algorithms for stocks. The algorithm has been adapted to import historical data from the web through *working* APIs as the Yahoo API (in Yves' 2014 book) has been deprecated. I have also recently added cryptocurrencies-importing capabilities from Binance (_**binancereader.py**_) and plotly publishing functionality.
+
+<a href="https://plot.ly/~andrewrgarcia/86.embed"><img src="BTC.png" alt="drawing" width="500"/></a>
+
 
 ## GBM.py
 
