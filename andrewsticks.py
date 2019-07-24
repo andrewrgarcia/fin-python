@@ -21,8 +21,11 @@ import binancereader as brc
 
 import matplotlib.dates as mdates
 
+datenow = datetime.datetime.now()
+
 def chart(curr='BTC', invl='1M', weight='USDT',mano1=0,mano2=0,tol='',\
-          title=str(datetime.datetime.now()),xaxis=''):
+          title=str(datenow),xaxis=''):
+    
     
     quotes = brc.coindoll(curr, invl,weight)
     
@@ -46,13 +49,13 @@ def chart(curr='BTC', invl='1M', weight='USDT',mano1=0,mano2=0,tol='',\
                      colorup='dodgerblue', colordown='#CD919E')
 #                     colorup='dodgerblue', colordown='gray')
 
-    
     ma1=quotes['close'].rolling(mano1).mean()
     ma2=quotes['close'].rolling(mano2).mean()
     if mano1 != 0 and mano2 != 0:
         plt.plot(time,ma1,label='MA {}'.format(mano1),color='m',linewidth=1)
         plt.plot(time,ma2,label='MA {}'.format(mano2),color='k',linewidth=1)
         plt.legend(title='tol: '+tol if tol !='' else None)
+    
     
     ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M:%S'))
     fig.autofmt_xdate()
@@ -65,4 +68,4 @@ def chart(curr='BTC', invl='1M', weight='USDT',mano1=0,mano2=0,tol='',\
     plt.show()
     
     
-#chart(invl='1m')
+chart(invl='1w')

@@ -21,21 +21,31 @@ from binancereader import *
 #from plotly_plots import plyfin
 
 
-'''# ==================== STOCK PARAMETERS GO HERE ========================='''
-
-ticker_name='SBUX'
-
 'moving averages to compare against'
-roll_mean1 = 5
-roll_mean2 = 15
+roll_mean1 = 59
+roll_mean2 = 66
 
 'tolerance for moving avg. comparison / regime determination'
 SD = 0.1
 
+'''# ==================== STOCK PARAMETERS GO HERE ========================='''
+
+ticker_name='SBUX'
+
+
+'beginning date of data collection'
+start = dt.datetime(2017, 1, 1)
+'end date'
+end = dt.datetime.now()
+
+
 '''# ========== CRYPTOCURRENCIES (Boolean to True, else False) ============='''
+
 crypto = True
 
 ticker_name = 'BTC'
+
+intl='1h'
 
 '''# ======================================================================='''
 
@@ -48,15 +58,12 @@ uncomment lines below / make code modifications'''
 
 
 
-'beginning date of data collection'
-start = dt.datetime(2017, 1, 1)
-'end date'
-end = dt.datetime.now()
+
 
 close_str = 'close'
 
 if crypto == True:
-    hist_data = coindoll(ticker_name,interval = '1w',weight='USDT')
+    hist_data = coindoll(ticker_name,interval = intl,weight='USDT')
 
 else:
 
@@ -131,7 +138,10 @@ hist_data['strategy return'] = hist_data['strategy']*hist_data[close_str]
 hist_data['strategy return'].plot()
 
 plt.legend()
+
+
 #hist_data[['market','strategy']].plot(title='{} Market v. Strategy Return comparison'.format(ticker_name),grid=False, figsize=(8, 5))
+
 
 
 X=hist_data['strategy'].cumsum().iloc[-1] - hist_data['market'].cumsum().iloc[-1]
