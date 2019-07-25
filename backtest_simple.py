@@ -22,8 +22,8 @@ from binancereader import *
 
 
 'moving averages to compare against'
-roll_mean1 = 59
-roll_mean2 = 66
+MA1 = 59
+MA2 = 66
 
 'tolerance for moving avg. comparison / regime determination'
 SD = 0.1
@@ -80,20 +80,17 @@ print(hist_data)
 #hist_data[[close_str]].plot(title = '{} Historical Data'.format(ticker_name), grid=False, figsize=(8, 5))
 
 
-#hist_data[str(roll_mean1)+'d MA'] = np.round(pd.rolling_mean(hist_data[close_str], window=roll_mean1), 2)
-#hist_data[str(roll_mean2)+'d MA'] = np.round(pd.rolling_mean(hist_data[close_str], window=roll_mean2), 2)
-hist_data[str(roll_mean1)+'d MA'] = hist_data[close_str].rolling(window=roll_mean1).mean()
-hist_data[str(roll_mean2)+'d MA'] = hist_data[close_str].rolling(window=roll_mean2).mean()
+#hist_data[str(MA1)+'d MA'] = np.round(pd.rolling_mean(hist_data[close_str], window=MA1), 2)
+#hist_data[str(MA2)+'d MA'] = np.round(pd.rolling_mean(hist_data[close_str], window=MA2), 2)
+hist_data[str(MA1)+'d MA'] = hist_data[close_str].rolling(window=MA1).mean()
+hist_data[str(MA2)+'d MA'] = hist_data[close_str].rolling(window=MA2).mean()
 
-hist_data[[close_str, str(roll_mean1)+'d MA', str(roll_mean2)+'d MA']].tail()
-
-hist_data[[close_str, str(roll_mean1)+'d MA', str(roll_mean2)+'d MA']].plot(grid=False)
-
+hist_data[[close_str, str(MA1)+'d MA', str(MA2)+'d MA']].tail()
 
 
 ''' buy / sell / hold regime determination '''
 
-hist_data['mov_avg'] = hist_data[str(roll_mean1)+'d MA'] - hist_data[str(roll_mean2)+'d MA']
+hist_data['mov_avg'] = hist_data[str(MA1)+'d MA'] - hist_data[str(MA2)+'d MA']
 
 hist_data['mov_avg'].tail()
 
@@ -102,9 +99,8 @@ hist_data['regime'] = np.where(hist_data['mov_avg'] < -SD, -1, hist_data['regime
 hist_data['regime'].value_counts()
 
 #hist_data['buy hold sell']=max(hist_data[close_str])*(100+hist_data['regime'])/100
-hist_data['buy hold sell']=max(hist_data[close_str])*(100+60*hist_data['regime'])/100
+hist_data['buy hold sell']=max(hist_data[close_str])*(100+5*hist_data['regime'])/100
 
-hist_data['buy hold sell'].plot(title= '{} technical analysis'.format(ticker_name),linestyle='--',  grid=False,lw=1.5)
 
 
 '''Market / Strategy comparison '''
@@ -135,13 +131,6 @@ for i in range(LS):
 hist_data[['market','strategy']]=hist_data[['market','strategy']].cumsum().apply(np.exp)
 
 hist_data['strategy return'] = hist_data['strategy']*hist_data[close_str]
-hist_data['strategy return'].plot()
-
-plt.legend()
-
-
-#hist_data[['market','strategy']].plot(title='{} Market v. Strategy Return comparison'.format(ticker_name),grid=False, figsize=(8, 5))
-
 
 
 X=hist_data['strategy'].cumsum().iloc[-1] - hist_data['market'].cumsum().iloc[-1]
@@ -149,5 +138,29 @@ X=hist_data['strategy'].cumsum().iloc[-1] - hist_data['market'].cumsum().iloc[-1
 print('final data pt. difference b/t market & strat: ',X)
 
 'plot.ly: to public cloud'
-#plyfin(hist_data,ticker_name,roll_mean1,roll_mean2,crypto)
+#plyfin(hist_data,ticker_name,MA1,MA2,crypto)
+
+
+
+def oldplt():
+    hist_data[[close_str, str(MA1)+'d MA', str(MA2)+'d MA']].plot(grid=False)
+    hist_data['buy hold sell'].plot(title= '{} technical analysis'.format(ticker_name),linestyle='--',  grid=False,lw=1.5)
+    hist_data['strategy return'].plot()
+    plt.legend()
+
+import matplotlib.dates as mdates
+def newplt():
+    datenow = datetime.datetime.now()
+    chart(curr=ticker_name, invl=intl, weight='USDT',MAv1=MA1,MAv2=MA2,tol='',\
+              title=str(datenow),xaxis='')
+    
+    quotes = coindoll(ticker_name, intl,weight='USDT')
+    time = mdates.epoch2num(quotes['open_time']*1e-3 - 14400)
+    plt.plot(time,hist_data['strategy return'],linewidth=1,label='strategy')
+    plt.plot(time,hist_data['buy hold sell'],color='hotpink',linewidth=1,label='buy-hold-sell lines')
+#    plt.suptitle('Technical analysis')
+    plt.legend()
+
+
+newplt()
 

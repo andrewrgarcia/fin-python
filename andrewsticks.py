@@ -23,7 +23,7 @@ import matplotlib.dates as mdates
 
 datenow = datetime.datetime.now()
 
-def chart(curr='BTC', invl='1M', weight='USDT',mano1=0,mano2=0,tol='',\
+def chart(curr='BTC', invl='1M', weight='USDT',MAv1=0,MAv2=0,tol='',\
           title=str(datenow),xaxis=''):
     
     
@@ -49,11 +49,11 @@ def chart(curr='BTC', invl='1M', weight='USDT',mano1=0,mano2=0,tol='',\
                      colorup='dodgerblue', colordown='#CD919E')
 #                     colorup='dodgerblue', colordown='gray')
 
-    ma1=quotes['close'].rolling(mano1).mean()
-    ma2=quotes['close'].rolling(mano2).mean()
-    if mano1 != 0 and mano2 != 0:
-        plt.plot(time,ma1,label='MA {}'.format(mano1),color='m',linewidth=1)
-        plt.plot(time,ma2,label='MA {}'.format(mano2),color='k',linewidth=1)
+    m1=quotes['close'].rolling(MAv1).mean()
+    m2=quotes['close'].rolling(MAv2).mean()
+    if MAv1 != 0 and MAv2 != 0:
+        plt.plot(time,m1,label='MA {}'.format(MAv1),color='m',linewidth=1)
+        plt.plot(time,m2,label='MA {}'.format(MAv2),color='k',linewidth=1)
         plt.legend(title='tol: '+tol if tol !='' else None)
     
     
@@ -64,8 +64,8 @@ def chart(curr='BTC', invl='1M', weight='USDT',mano1=0,mano2=0,tol='',\
     plt.xlabel(xaxis)
     #plt.ylabel('$'+curr+'\)
     plt.title(title)
-    fig.tight_layout()
-    plt.show()
+#    fig.tight_layout()
+#    plt.show()
     
     
-chart(invl='1w')
+#chart(invl='1w')
