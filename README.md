@@ -17,13 +17,17 @@ limitations under the License.
 
 ## andrewsticks.py
 
-User-friendly script to turn stock market / crypto data to candlesticks (OHLC charts)
+User-friendly script I developed to turn stock market / crypto data into candlesticks (OHLC charts)
 
 <img src="BTC_andrewsticks.png" alt="drawing" width="500"/></a>
 
 ## backtest_simple.py
 
-Published code _**backtest_simple.py**_ is an **ADAPTED** script from the scripts in _**Python for Finance (Yves Hilpisch, 2014)**_ which show simple technical analysis algorithms for stocks. The algorithm has been adapted to import historical data from the web through *working* APIs as the Yahoo API (in Yves' 2014 book) has been deprecated. I have also recently added cryptocurrencies-importing capabilities from Binance (_**binancereader.py**_) and plotly publishing functionality.
+Published code _**backtest_simple.py**_ is an **ADAPTED** script from the scripts in _**Python for Finance (Yves Hilpisch, 2014)**_ which show simple technical analysis algorithms for stocks. The algorithm has been adapted to import historical data from the web through *working* APIs as the Yahoo API (in Yves' 2014 book) has been deprecated.
+
+The script utilizes the script _**andrewsticks.py**_ to plot the ohlc data and compares it with the returns of the trend-based [MACD] strategy ('strategy'), plots the buy-sell-hold signals ('buy-sell-hold lines') and the chosen moving averages ('MA1' and 'MA2')
+
+I have also recently added cryptocurrencies-importing capabilities from Binance (_**binancereader.py**_) and plotly publishing functionality.
 
 <a href="https://plot.ly/~andrewrgarcia/86.embed"><img src="BTC.png" alt="drawing" width="500"/></a>
 
