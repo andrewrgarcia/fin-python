@@ -24,7 +24,7 @@ import matplotlib.dates as mdates
 datenow = datetime.datetime.now()
 
 def chart(curr='BTC', invl='1M', weight='USDT',MAv1=0,MAv2=0,tol='',\
-          title=str(datenow),xaxis=''):
+          title=str(datenow),xaxis='',c_up='darkgray',c_dn='navy',c_ma1='blue',c_ma2='red'):
     
     
     quotes = brc.coindoll(curr, invl,weight)
@@ -46,14 +46,14 @@ def chart(curr='BTC', invl='1M', weight='USDT',MAv1=0,MAv2=0,tol='',\
                      else wadth*24*7*int(invl[:-1]) if invl[-1:] == 'w' \
                      else wadth*24*7*4*int(invl[:-1]) if invl[-1:] == 'M' \
                      else 0.001,\
-                     colorup='dodgerblue', colordown='#CD919E')
+                     colorup=c_up, colordown=c_dn)
 #                     colorup='dodgerblue', colordown='gray')
 
     m1=quotes['close'].rolling(MAv1).mean()
     m2=quotes['close'].rolling(MAv2).mean()
     if MAv1 != 0 and MAv2 != 0:
-        plt.plot(time,m1,label='MA {}'.format(MAv1),color='m',linewidth=1)
-        plt.plot(time,m2,label='MA {}'.format(MAv2),color='k',linewidth=1)
+        plt.plot(time,m1,label='MA {}'.format(MAv1),color=c_ma1,linewidth=1)
+        plt.plot(time,m2,label='MA {}'.format(MAv2),color=c_ma2,linewidth=1)
         plt.legend(title='tol: '+tol if tol !='' else None)
     
     
@@ -68,4 +68,4 @@ def chart(curr='BTC', invl='1M', weight='USDT',MAv1=0,MAv2=0,tol='',\
 #    plt.show()
     
     
-#chart(invl='1w')
+chart(invl='1h')

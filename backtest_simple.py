@@ -19,11 +19,12 @@ import datetime as dt
 #from cryptoreader import *
 from binancereader import *
 #from plotly_plots import plyfin
+from andrewsticks import chart
 
 
 'moving averages to compare against'
-MA1 = 59
-MA2 = 66
+MA1 = 12
+MA2 = 17
 
 'tolerance for moving avg. comparison / regime determination'
 SD = 0.1
@@ -157,7 +158,7 @@ def newplt():
     quotes = coindoll(ticker_name, intl,weight='USDT')
     time = mdates.epoch2num(quotes['open_time']*1e-3 - 14400)
     plt.plot(time,hist_data['strategy return'],linewidth=1,label='strategy')
-    plt.plot(time,hist_data['buy hold sell'],color='hotpink',linewidth=1,label='buy-hold-sell lines')
+    plt.plot(time,hist_data['buy hold sell'],color='lightgray',linewidth=1,label='buy-hold-sell lines')
 #    plt.suptitle('Technical analysis')
     plt.legend()
 
