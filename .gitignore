@@ -3,8 +3,10 @@ __pycache__
 
 #confidential
 plotly_cred.py
+gempyrean.py
 blackswanclimb.py
 blackswanclimb2.py
+strat_tester.py
 
 black_swan.jpg
 blackswan/
