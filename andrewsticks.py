@@ -22,50 +22,183 @@ import binancereader as brc
 import matplotlib.dates as mdates
 
 datenow = datetime.datetime.now()
+plt.style.use('fivethirtyeight')
 
-def chart(curr='BTC', invl='1M', weight='USDT',MAv1=0,MAv2=0,tol='',\
-          title=str(datenow),xaxis='',c_up='darkgray',c_dn='navy',c_ma1='blue',c_ma2='red'):
+def chart(data, curr='BTC', invl='1M', weight='USDT',MAv1=0,MAv2=0,tol='',\
+          title=str(datenow),xaxis='',c_up='dodgerblue',c_dn='pink',c_ma1='magenta',c_ma2='blue'):
     
     
     quotes = brc.coindoll(curr, invl,weight)
     
-    fig, ax = plt.subplots()
+#    fig, ax = plt.subplots()
+    fig, (ax, ax2,ax3,ax4) = plt.subplots(4, 1, sharex=True,gridspec_kw={'height_ratios':[4,2,2,1]})
+
     
     time = mdates.epoch2num(quotes['open_time']*1e-3 - 14400)
     new= zip(time, \
              quotes['open'],quotes['high'],quotes['low'],quotes['close'])
     
-    
-    wadth = 0.02
-    candlestick_ohlc(ax,new,\
-                     width= wadth if invl == '1h' \
-
-                     else wadth*int(invl[:-1])/60 if invl[-1:] == 'm' \
-                     else wadth*int(invl[:-1]) if invl[-1:] == 'h' \
-                     else wadth*24*int(invl[:-1]) if invl[-1:] == 'd' \
-                     else wadth*24*7*int(invl[:-1]) if invl[-1:] == 'w' \
-                     else wadth*24*7*4*int(invl[:-1]) if invl[-1:] == 'M' \
-                     else 0.001,\
-                     colorup=c_up, colordown=c_dn)
-#                     colorup='dodgerblue', colordown='gray')
+    'define bar width'
+    wadth0 = 0.02
+    wadth = 0.02 if invl == '1h' \
+                     else wadth0*int(invl[:-1])/60 if invl[-1:] == 'm' \
+                     else wadth0*int(invl[:-1]) if invl[-1:] == 'h' \
+                     else wadth0*24*int(invl[:-1]) if invl[-1:] == 'd' \
+                     else wadth0*24*7*int(invl[:-1]) if invl[-1:] == 'w' \
+                     else wadth0*24*7*4*int(invl[:-1]) if invl[-1:] == 'M' \
+                     else 0.001
+                     
+    candlestick_ohlc(ax,new, width= wadth, colorup=c_up, colordown=c_dn)
 
     m1=quotes['close'].rolling(MAv1).mean()
     m2=quotes['close'].rolling(MAv2).mean()
     if MAv1 != 0 and MAv2 != 0:
-        plt.plot(time,m1,label='MA {}'.format(MAv1),color=c_ma1,linewidth=1)
-        plt.plot(time,m2,label='MA {}'.format(MAv2),color=c_ma2,linewidth=1)
-        plt.legend(title='tol: '+tol if tol !='' else None)
+        ax.plot(time,m1,label='MA {}'.format(MAv1),color=c_ma1,linewidth=1)
+        ax.plot(time,m2,label='MA {}'.format(MAv2),color=c_ma2,linewidth=1)
+        ax.legend(title='tol: '+tol if tol !='' else None)
+        
+        diff=(m1-m2)
+        nordiff = (m1-m2)/np.max(abs(diff))
+        ax3.bar(time,diff,width=wadth*1.5,color=(diff > 0).map({True: 'dodgerblue', False: 'grey'}) )
+#        ax3.get_yaxis().set_visible(False)
+        ax2.plot(time,data['strategy'],linewidth=1,label='strategy')
+        ax2.plot(time,data['market'],linewidth=1,label='market')
+        ax2.legend()
+
+        ax4.plot(time,data['buy hold sell'],color='crimson',linewidth=1,label='regime')
+        ax4.legend()
+
+        
+        
+        
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M:%S'))
+    fig.autofmt_xdate()
+    fig.subplots_adjust(hspace=0)
+
+    ax.set_ylabel(curr+'USDT' if weight == 'USDT' else curr+'BTC', size=14)
+    ax.set_xlabel(xaxis)
+    ax.set_title(title)
+
+     
+def chart_stock(data, curr='BTC', invl='1M', weight='USDT',MAv1=0,MAv2=0,tol='',\
+          title=str(datenow),xaxis='',c_up='dodgerblue',c_dn='pink',c_ma1='magenta',c_ma2='blue'):
     
+    
+    quotes = data
+    close_str = 'Close'
+    
+#    fig, ax = plt.subplots()
+    fig, (ax, ax2,ax3,ax4) = plt.subplots(4, 1, sharex=True,gridspec_kw={'height_ratios':[4,2,2,1]})
+
+    
+    time = mdates.date2num(quotes.index)
+    
+    new= zip(time, \
+             quotes['Open'],quotes['High'],quotes['Low'],quotes['Close'])
+    
+    'define bar width'
+    wadth0 = 0.02
+    wadth = 0.02 if invl == '1h' \
+                     else wadth0*int(invl[:-1])/60 if invl[-1:] == 'm' \
+                     else wadth0*int(invl[:-1]) if invl[-1:] == 'h' \
+                     else wadth0*24*int(invl[:-1]) if invl[-1:] == 'd' \
+                     else wadth0*24*7*int(invl[:-1]) if invl[-1:] == 'w' \
+                     else wadth0*24*7*4*int(invl[:-1]) if invl[-1:] == 'M' \
+                     else 0.001
+                     
+    candlestick_ohlc(ax,new, width= wadth, colorup=c_up, colordown=c_dn)
+
+    m1=quotes[close_str].rolling(MAv1).mean()
+    m2=quotes[close_str].rolling(MAv2).mean()
+    if MAv1 != 0 and MAv2 != 0:
+        ax.plot(time,m1,label='MA {}'.format(MAv1),color=c_ma1,linewidth=1)
+        ax.plot(time,m2,label='MA {}'.format(MAv2),color=c_ma2,linewidth=1)
+        ax.legend(title='tol: '+tol if tol !='' else None)
+        
+        diff=(m1-m2)
+        nordiff = (m1-m2)/np.max(abs(diff))
+        ax3.bar(time,diff,width=wadth*1.5,color=(diff > 0).map({True: 'dodgerblue', False: 'grey'}) )
+#        ax3.get_yaxis().set_visible(False)
+        ax2.plot(time,data['strategy'],linewidth=1,label='strategy')
+        ax2.plot(time,data['market'],linewidth=1,label='market')
+        ax2.legend()
+
+        ax4.plot(time,data['buy hold sell'],color='crimson',linewidth=1,label='regime')
+        ax4.legend()
+
+        
+        
+        
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M:%S'))
+    fig.autofmt_xdate()
+    fig.subplots_adjust(hspace=0)
+
+    ax.set_ylabel(curr, size=14)
+    ax.set_xlabel(xaxis)
+    ax.set_title(title)    
+
+
+#chart(invl='1w',c_up='dodgerblue',c_dn='#CD919E')
+
+
+def chartadv(curr='BTC', invl='1M', weight='USDT',MAv1=0,MAv2=0,tol='',\
+          title=str(datenow),xaxis='',c_up='darkgray',c_dn='navy',c_ma1='blue',c_ma2='red',\
+          c_sr='', BHS='',strat_return=''):
+    
+    
+    quotes = brc.coindoll(curr, invl,weight)
+    
+#    fig, ax = plt.subplots()
+    fig, (ax, ax2) = plt.subplots(2, 1, sharex=True,gridspec_kw={'height_ratios':[3,1]})
+
+    
+    time = mdates.epoch2num(quotes['open_time']*1e-3 - 14400)
+    new= zip(time, \
+             quotes['open'],quotes['high'],quotes['low'],quotes['close'])
+    
+    'define bar width'
+    wadth0 = 0.02
+    wadth = 0.02 if invl == '1h' \
+                     else wadth0*int(invl[:-1])/60 if invl[-1:] == 'm' \
+                     else wadth0*int(invl[:-1]) if invl[-1:] == 'h' \
+                     else wadth0*24*int(invl[:-1]) if invl[-1:] == 'd' \
+                     else wadth0*24*7*int(invl[:-1]) if invl[-1:] == 'w' \
+                     else wadth0*24*7*4*int(invl[:-1]) if invl[-1:] == 'M' \
+                     else 0.001
+                     
+    candlestick_ohlc(ax,new, width= wadth, colorup=c_up, colordown=c_dn)
+
+    m1=quotes['close'].rolling(MAv1).mean()
+    m2=quotes['close'].rolling(MAv2).mean()
+    if MAv1 != 0 and MAv2 != 0:
+        ax.plot(time,m1,label='MA {}'.format(MAv1),color=c_ma1,linewidth=1)
+        ax.plot(time,m2,label='MA {}'.format(MAv2),color=c_ma2,linewidth=1)
+#        ax.plot(time,quotes['strategy_ret'],label='return on investment',color='red',linewidth=1)
+        ax.legend(title='tol: '+tol if tol !='' else None)
+        
+        diff=(m1-m2)
+        nordiff = (m1-m2)/np.max(abs(diff))
+        ax2.bar(time,diff,width=wadth*1.5,color=(diff > 0).map({True: 'dodgerblue', False: 'grey'}) )
+#        ax2.get_yaxis().set_visible(False)
     
     ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M:%S'))
     fig.autofmt_xdate()
+    fig.subplots_adjust(hspace=0)
 
-    plt.ylabel('BINANCE: '+curr+'USDT' if weight == 'USDT' else 'BINANCE: '+curr+'BTC', size=14)
-    plt.xlabel(xaxis)
-    #plt.ylabel('$'+curr+'\)
-    plt.title(title)
-#    fig.tight_layout()
-#    plt.show()
+    ax.set_ylabel('BINANCE: '+curr+'USDT' if weight == 'USDT' else 'BINANCE: '+curr+'BTC', size=14)
+    ax2.set_xlabel(xaxis)
+    ax.set_title(title)
+    
+#    ax.semilogy(time,strat_return,linewidth=1,color=c_sr,label='MACD strat returns')
+#    ax.plot(time,strat_mark,linewidth=1,label='mket')
+
+#    ax.plot(time,BHS,color='k',linewidth=1,label='buy-hold-sell')
+#    ax.semilogy(time,BHS,color=c_bhs,linewidth=1,label='buy-hold-sell')
+
+#    plt.gcf().text(0.91, 0.97, '-MeV/c2', fontsize=9)
+
+    plt.legend()
     
     
-chart(invl='1h')
+#chartadv(curr='LINK', invl='1d', weight='USDT',MAv1=7,MAv2=25,tol='',c_up='dodgerblue', c_dn='#CD919E', c_ma1='m',c_ma2='k')
+
