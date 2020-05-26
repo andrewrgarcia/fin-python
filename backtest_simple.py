@@ -118,8 +118,8 @@ dM = np.array([(MACD[i] - MACD[i-1]) for i in range(len(MACD))])
 
 if args["strategy"] is 'buylowsellhigh':
 
-    hist_data['regime'] = np.where(MACD < SD,1,0)
-    hist_data['regime'] = np.where(MACD > -SD,-1,hist_data['regime'])
+    hist_data['regime'] = np.where(MACD > SD,1,0)
+    hist_data['regime'] = np.where(MACD < -SD,-1,hist_data['regime'])
 
 
 
