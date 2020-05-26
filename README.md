@@ -23,7 +23,7 @@ The script utilizes my chart drawing script _**andrewsticks.py**_ to plot the oh
 
 I have also recently added cryptocurrencies-importing capabilities from Binance (_**binancereader.py**_) and plotly publishing functionality.
 
-<img src="BTC_andrewsticks.png" alt="drawing" width="500"/></a>
+<img src="backtestplt_BTC.png" alt="drawing" width="500"/></a>
 
 ## GBM.py
 
