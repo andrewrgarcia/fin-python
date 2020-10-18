@@ -79,7 +79,9 @@ def chart(data, curr='BTC', invl='1M', weight='USDT',MAv1=0,MAv2=0,tol='',\
     ax.set_xlabel(xaxis)
     ax.set_title(title)
 
-     
+# chart(data, curr='BTC', invl='1M', weight='USDT',MAv1=0,MAv2=0,tol='',\
+#           title=str(datenow),xaxis='',c_up='dodgerblue',c_dn='pink',c_ma1='magenta',c_ma2='blue')
+
 def chart_stock(data, curr='BTC', invl='1M', weight='USDT',MAv1=0,MAv2=0,tol='',\
           title=str(datenow),xaxis='',c_up='dodgerblue',c_dn='pink',c_ma1='magenta',c_ma2='blue'):
     

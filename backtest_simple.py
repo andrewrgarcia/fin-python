@@ -24,11 +24,11 @@ from andrewsticks import chart, chart_stock
 
 #import os
 #api = 
-from iexfinance.stocks import Stock
+# from iexfinance.stocks import Stock
 import matplotlib.pyplot as plt
-from iexfinance.stocks import get_historical_data
+# from iexfinance.stocks import get_historical_data
 
-import yfinance as yf
+# import yfinance as yf
 
 import argparse
 ap = argparse.ArgumentParser()
